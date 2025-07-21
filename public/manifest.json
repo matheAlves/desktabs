@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "Desktabs",
+  "version": "1.0.0",
+  "description": "Your favorite bookmark manager",
+  "icons": {
+    "48": "desktabs-48.png",
+    "128": "desktabs-128.png"
+  },
+  "chrome_url_overrides": {
+    "newtab": "index.html"
+  },
+  "permissions": [
+    "tabs",
+    "scripting",
+    "bookmarks",
+    "storage"
+  ],
+  "host_permissions": [
+    "http://*/*",
+    "https://*/*"
+  ]
+}
