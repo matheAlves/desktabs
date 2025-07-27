@@ -4,14 +4,14 @@
 import type { Collection } from './store.ts';
 
 // Strategy interface - defines the contract for store implementations
-export interface StorageStrategy {
+export interface StoreStrategy {
   read(): Promise<string | null>;
   write(data: string): Promise<void>;
   remove(): Promise<void>;
 }
 
 // Concrete Strategy 1: LocalStorage implementation
-export class LocalStorageStrategy implements StorageStrategy {
+export class LocalStorageStrategy implements StoreStrategy {
   private readonly key: string;
 
   constructor(key: string = 'desktabs-collections') {
@@ -47,7 +47,7 @@ export class LocalStorageStrategy implements StorageStrategy {
 }
 
 // Concrete Strategy 2: IndexedDB implementation
-export class IndexedDBStrategy implements StorageStrategy {
+export class IndexedDBStrategy implements StoreStrategy {
   private readonly dbName: string;
   private readonly version: number;
   private readonly storeName: string;
@@ -134,7 +134,7 @@ export class IndexedDBStrategy implements StorageStrategy {
 }
 
 // Concrete Strategy 3: Session Storage implementation
-export class SessionStorageStrategy implements StorageStrategy {
+export class SessionStorageStrategy implements StoreStrategy {
   private readonly key: string;
 
   constructor(key: string = 'desktabs-collections') {
@@ -170,7 +170,7 @@ export class SessionStorageStrategy implements StorageStrategy {
 }
 
 // Concrete Strategy 4: Memory store implementation (for testing)
-export class MemoryStorageStrategy implements StorageStrategy {
+export class MemoryStorageStrategy implements StoreStrategy {
   private data: string | null = null;
 
   async read(): Promise<string | null> {
@@ -189,14 +189,14 @@ export class MemoryStorageStrategy implements StorageStrategy {
 // Context Class - The Generic Adapter that uses strategies
 // This implements the Strategy Pattern by delegating store operations to the injected strategy
 export class GenericStorageAdapter {
-  private strategy: StorageStrategy;
+  private strategy: StoreStrategy;
 
-  constructor(strategy: StorageStrategy) {
+  constructor(strategy: StoreStrategy) {
     this.strategy = strategy;
   }
 
   // Method to change strategy at runtime (Strategy Pattern feature)
-  setStrategy(strategy: StorageStrategy): void {
+  setStrategy(strategy: StoreStrategy): void {
     this.strategy = strategy;
   }
 
@@ -233,7 +233,7 @@ export class GenericStorageAdapter {
   }
 
   // Utility method to migrate data between strategies
-  async migrateToStrategy(newStrategy: StorageStrategy): Promise<void> {
+  async migrateToStrategy(newStrategy: StoreStrategy): Promise<void> {
     try {
       // Load data with current strategy
       const collections = await this.load();

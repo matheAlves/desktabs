@@ -213,9 +213,6 @@ function NewTab() {
   return (
     <div className="newtab-container">
       <StorageStrategyDemo />
-      <header className="newtab-header">
-        <h1>DesKTabs</h1>
-      </header>
 
       <div className="main-content">
         <main className="collections-grid">

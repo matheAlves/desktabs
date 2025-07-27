@@ -3,8 +3,8 @@
 import {
   GenericStorageAdapter,
   LocalStorageStrategy,
-} from './storage-strategies.ts';
-import type { StorageStrategy } from './storage-strategies.ts';
+} from './store-strategies.ts';
+import type { StoreStrategy } from './store-strategies.ts';
 
 export interface BookmarkUrl {
   id: string;
@@ -33,7 +33,7 @@ class Store {
   private storageAdapter: GenericStorageAdapter;
   private isInitialized = false;
 
-  constructor(strategy?: StorageStrategy) {
+  constructor(strategy?: StoreStrategy) {
     // Dependency Injection: inject the store strategy
     const storageStrategy = strategy || new LocalStorageStrategy();
     this.storageAdapter = new GenericStorageAdapter(storageStrategy);
@@ -167,7 +167,7 @@ class Store {
   }
 
   // Strategy Pattern: Change store strategy at runtime
-  async switchStorageStrategy(newStrategy: StorageStrategy): Promise<void> {
+  async switchStorageStrategy(newStrategy: StoreStrategy): Promise<void> {
     try {
       await this.storageAdapter.migrateToStrategy(newStrategy);
       // Reload collections from new store

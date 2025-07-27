@@ -7,7 +7,8 @@ import {
   IndexedDBStrategy,
   SessionStorageStrategy,
   MemoryStorageStrategy,
-} from './store/storage-strategies.ts';
+} from './store/store-strategies.ts';
+import './StorageStrategyDemo.css';
 
 export const StorageStrategyDemo: React.FC = () => {
   const [currentStrategy, setCurrentStrategy] = useState('LocalStorage');
@@ -50,18 +51,7 @@ export const StorageStrategyDemo: React.FC = () => {
 
   return (
     <div
-      style={{
-        position: 'fixed',
-        top: '10px',
-        right: '10px',
-        background: 'white',
-        padding: '15px',
-        borderRadius: '8px',
-        boxShadow: '0 2px 10px rgba(0,0,0,0.1)',
-        minWidth: '250px',
-        fontSize: '12px',
-        zIndex: 1000,
-      }}
+      className="main"
     >
       <h4 style={{ margin: '0 0 10px 0' }}>Storage Strategy Demo</h4>
 
